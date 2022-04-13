@@ -5,7 +5,7 @@ const sample = (array) => {
 }
 
 // define generatePassword function
-const generatePassword = () => {
+const generatePassword = (options) => {
     // define things user might want
     const lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz"
     const upperCaseLetters = lowerCaseLetters.toUpperCase()
@@ -13,14 +13,7 @@ const generatePassword = () => {
     const symbols = '`~!@$%^&*()-_+={}[]|;:"<>,.?/'
 
     // create a collection to store things user picked up
-    const options = {
-        length: 12,
-        lowercase: 'on',
-        uppercase: 'on',
-        numbers: 'on',
-        symbols: "on",
-        excludeCharacters: '123456'
-    }
+
     let collection = []
 
     if (options.lowercase === "on") {
@@ -41,6 +34,10 @@ const generatePassword = () => {
             character => !options.excludeCharacters.includes(character)
         )
     }
+
+    if (collection.length === 0) {
+        return 'There is no valid character in your selection.'
+    }
     // start generating password
     let password = ""
     for (let i = 0; i < Number(options.length); i++) {
@@ -48,8 +45,8 @@ const generatePassword = () => {
     }
 
     // return the generated password
-    console.log(password)
+    return password
 }
 
 // invoke generatePassword function 
-generatePassword()
+module.exports = generatePassword
